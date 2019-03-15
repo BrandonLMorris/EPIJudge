@@ -1,0 +1,17 @@
+5.1
+6.1,6
+7.1: String integer interconversion
+8.1: Merge two sorted lists
+9.1: Stack with max
+10.1: Test if binary tree is height balanced
+11.1: Merge sorted files
+12.1: Test for palindromic permutations
+13.2: Is an anonymous letter possible?
+14.1: Compute the intersection of two sorted arrays
+15.1: Test if binary tree is BST
+16.1: Towers of hanoi
+17.1: Count the number of score combinations
+18.4: 3 sum problem
+19.1: Search a maze
+20.3: Implement synchronization between two interleaving threads
+21.13*

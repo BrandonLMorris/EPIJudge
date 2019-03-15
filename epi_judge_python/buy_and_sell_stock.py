@@ -2,8 +2,12 @@ from test_framework import generic_test
 
 
 def buy_and_sell_stock_once(prices):
-    # TODO - you fill in here.
-    return 0.0
+    min_so_far = 2 << 32
+    best_profit = 0
+    for price in prices:
+        min_so_far = min(price, min_so_far)
+        best_profit = max(price - min_so_far, best_profit)
+    return best_profit
 
 
 if __name__ == '__main__':
