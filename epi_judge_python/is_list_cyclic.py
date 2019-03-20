@@ -6,7 +6,53 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def has_cycle(head):
-    # TODO - you fill in here.
+    # O(1) space solution
+    if head is None:
+        return None
+    slow, fast = head, head
+    fast = fast.next
+    if fast is None:
+        return None
+    fast = fast.next
+    while fast is not None and fast.data != slow.data:
+        try:
+            fast = fast.next.next
+        except AttributeError:
+            return None
+        slow = slow.next
+    if fast is None:
+        return None
+    cycle_length = get_cycle_length(fast)
+    runner, slow = head, head
+    for _ in range(cycle_length):
+        runner = runner.next
+    while runner is not slow:
+        runner, slow = runner.next, slow.next
+    return slow
+
+
+def get_cycle_length(head):
+    slow = head.next
+    fast = head.next.next
+    length = 1
+    while fast is not slow:
+        length += 1
+        fast = fast.next.next
+        slow = slow.next
+    return length
+
+
+def linear_space(head):
+    # Simple solution with O(n) space
+    visited = set()
+    node = head
+    idx = 0
+    while node is not None:
+        if node.data in visited:
+            return node
+        visited.add(node.data)
+        node = node.next
+        idx += 1
     return None
 
 

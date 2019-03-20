@@ -9,8 +9,16 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def compute_random_permutation(n):
-    # TODO - you fill in here.
-    return []
+    # Easy (semi-cheating) solution
+    # import random
+    # ns = list(range(n))
+    # random.shuffle(ns)
+    import random
+    ns = list(range(n))
+    for left in range(n):
+        idx = random.randint(left, n-1)
+        ns[left], ns[idx] = ns[idx], ns[left]
+    return ns
 
 
 @enable_executor_hook

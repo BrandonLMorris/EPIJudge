@@ -27,8 +27,19 @@ class Star:
 
 
 def find_closest_k_stars(stars, k):
-    # TODO - you fill in here.
-    return []
+    import heapq
+    top_k = []
+    for star in stars:
+        if len(top_k) < k:
+            heapq.heappush(top_k, (-star.distance, star))
+        else:
+            _, furthest = heapq.heappop(top_k)
+            if furthest.distance < star.distance:
+                heapq.heappush(top_k, (-furthest.distance, furthest))
+            else:
+                heapq.heappush(top_k, (-star.distance, star))
+    closest = [_[1] for _ in top_k]
+    return closest
 
 
 def comp(expected_output, output):

@@ -5,8 +5,25 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def replace_and_remove(size, s):
-    # TODO - you fill in here.
-    return 0
+    # Remove b's and replace a's with dd
+    res_idx = len(s) - 1
+    in_idx = size - 1
+    while in_idx >= 0:
+        if s[in_idx] == 'b':
+            in_idx -= 1
+        elif s[in_idx] == 'a':
+            s[res_idx] = 'd'
+            res_idx -= 1
+            s[res_idx] = 'd'
+            res_idx -= 1
+            in_idx -= 1
+        else:
+            s[res_idx] = s[in_idx]
+            res_idx -= 1
+            in_idx -= 1
+    for toi, fromi in enumerate(range(res_idx + 1, len(s))):
+        s[toi] = s[fromi]
+    return len(s) - res_idx - 1
 
 
 @enable_executor_hook
