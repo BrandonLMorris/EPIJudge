@@ -2,8 +2,17 @@ from test_framework import generic_test
 
 
 def plus_one(A):
-    # TODO - you fill in here.
-    return []
+    # 6.2
+    idx = len(A) - 1
+    carry = 1
+    while idx >= 0 and carry:
+        A[idx] += carry
+        carry, res = divmod(A[idx], 10)
+        A[idx] = res
+        idx -= 1
+    if carry:
+        A.insert(0, carry)
+    return A
 
 
 if __name__ == '__main__':

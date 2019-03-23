@@ -3,21 +3,50 @@ from test_framework.test_failure import TestFailure
 
 
 class LruCache:
+    # 13.3
     def __init__(self, capacity):
-        # TODO - you fill in here.
+        self.cache = {}
+        self.capacity = capacity
+        self.use_counter = 0
         return
 
     def lookup(self, isbn):
-        # TODO - you fill in here.
-        return 0
+        if isbn in self.cache:
+            price, _ = self.cache[isbn]
+            self.cache[isbn] = (price, self.use_counter)
+            self.use_counter += 1
+            return self.cache[isbn][0]
+        return -1
 
     def insert(self, isbn, price):
-        # TODO - you fill in here.
+        # O(c) solution, where c is capacity
+        #   Alternative: Keep a min heap of the cache sorted by its use_counter value. Evicting involves just popping
+        #   the isbn at the top of the heap
+        # Don't update price if in cache already
+        if isbn in self.cache.keys():
+            old_price, _ = self.cache[isbn]
+            self.cache[isbn] = (old_price, self.use_counter)
+            self.use_counter += 1
+        else:
+            # Evict if over capacity
+            if len(self.cache) == self.capacity:
+                least_recent, least_counter = None, None
+                for isbn_, (_, counter) in self.cache.items():
+                    if least_recent is None or counter < least_counter:
+                        least_counter = counter
+                        least_recent = isbn_
+                self.cache.pop(least_recent)
+                self.cache[isbn] = (price, self.use_counter)
+            else:
+                self.cache[isbn] = price, self.use_counter
+            self.use_counter += 1
         return
 
     def erase(self, isbn):
-        # TODO - you fill in here.
-        return True
+        if isbn in self.cache:
+            self.cache.pop(isbn)
+            return True
+        return False
 
 
 def run_test(commands):

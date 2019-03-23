@@ -8,8 +8,15 @@ NUM_PEGS = 3
 
 
 def compute_tower_hanoi(num_rings):
-    # TODO - you fill in here.
-    return []
+    def hanoi_inner(num_rings, src, dest):
+        if num_rings == 1:
+            return [(src, dest)]
+        else:
+            tmp_dest = ({0, 1, 2} - {src, dest}).pop()
+            pre_move = hanoi_inner(num_rings-1, src, tmp_dest)
+            post_move = hanoi_inner(num_rings-1, tmp_dest, dest)
+            return pre_move + [(src, dest)] + post_move
+    return hanoi_inner(num_rings, 0, 1)
 
 
 @enable_executor_hook
