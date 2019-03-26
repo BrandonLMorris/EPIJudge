@@ -2,8 +2,16 @@ from test_framework import generic_test
 
 
 def number_of_ways(n, m):
-    # TODO - you fill in here.
-    return 0
+    # m is the row
+    mat = [[0 for _ in range(n)] for _ in range(m)]
+    for col in range(n):
+        mat[0][col] = 1
+    for row in range(m):
+        mat[row][0] = 1
+    for row in range(1, m):
+        for col in range(1, n):
+            mat[row][col] = mat[row-1][col] + mat[row][col-1]
+    return mat[-1][-1]
 
 
 if __name__ == '__main__':
